@@ -9,19 +9,34 @@ Pause between dots and dashes in a character – is 1 time unit long.
 Pause between characters inside a word – is 3 time units long.
 Pause between words – is 7 time units long.
 """
-__author__ = '???'
+__author__ = 'Tyrell Williams, with help from Mike'
 
 from morse_dict import MORSE_2_ASCII
 
 
 def decode_bits(bits):
-    # your code here
-    return
+    bits = bits.strip('0')
+    bits_timing = (min([len(element)
+                   for element in bits.split('1') +
+                   bits.split('0') if element]))
+    new_bits = (bits.replace('0000000' * bits_timing, '   ')
+                .replace('111' * bits_timing, '-')
+                .replace('1' * bits_timing, '.')
+                .replace('000' * bits_timing, ' ')
+                .replace('0' * bits_timing, ''))
+    return new_bits
 
 
 def decode_morse(morse):
-    # your code here
-    return
+    morse_code = morse.strip().split('   ')
+    letters = []
+    for morse_word in morse_code:
+        chars = morse_word.split(' ')
+        for char in chars:
+            letters.append(MORSE_2_ASCII[char])
+        letters.append(' ')
+    print(''.join(letters).strip())
+    return ''.join(letters).strip()
 
 
 if __name__ == '__main__':
